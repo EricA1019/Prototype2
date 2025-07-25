@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/AbilityResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+resource_name = "Regen"
+display_name = "Regen"
+damage_type = "Holy"
+tags = ["HOT"]
+description = "Restores HP each round."
+icon_path = ""
+cooldown = 0
+buff_to_apply = "Regen"
+

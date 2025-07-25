@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run GUT headless",
+      "type": "shell",
+      "command": "flatpak-spawn",
+      "args": [
+        "--host",
+        "godot4",
+        "-d", "--headless",
+        "-s", "addons/gut/gut_cmdln.gd",
+        "--path", "${workspaceFolder}",
+        "-gdir=res://scenes/tests",
+        "-ginclude_subdirs",
+        "-gexit",
+        "-glog=2"
+      ],
+      "group": { "kind": "test", "isDefault": true },
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    }
+  ]
+}

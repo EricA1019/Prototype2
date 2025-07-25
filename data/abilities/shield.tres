@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/AbilityResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+resource_name = "Shield"
+display_name = "Shield"
+damage_type = "Holy"
+tags = ["Buff"]
+description = "Absorbs incoming damage."
+icon_path = ""
+cooldown = 2
+buff_to_apply = "Shield"
+

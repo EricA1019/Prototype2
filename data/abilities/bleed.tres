@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/AbilityResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+resource_name = "Bleed"
+display_name = "Bleed"
+damage_type = "Physical"
+tags = ["DOT"]
+description = "Inflicts HP loss each round."
+icon_path = ""
+cooldown = 0
+buff_to_apply = "Bleed"
+

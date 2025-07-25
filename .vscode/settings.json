@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run GUT headless",
+      "type": "shell",
+      "command": "flatpak-spawn",
+      "args": [
+        "--host",
+        "godot4",
+        "--headless",
+        "-s", "addons/gut/cli/gut_cli.gd",
+        "-gdir=res://scenes/tests"
+      ],
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run BattleTest",
+      "type": "shell",
+      "command": "flatpak-spawn",
+      "args": [
+        "--host",
+        "godot4",
+        "--path", "${workspaceFolder}",
+        "-s", "res://scripts/LaunchBattleTest.gd"
+      ],
+      "problemMatcher": []
+    }
+],
+"files.exclude": {
+  "**/*.rpyc": true,
+  "**/*.rpa": true,
+  "**/*.rpymc": true,
+  "**/cache/": true
+}
+}

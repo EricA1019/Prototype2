@@ -1,0 +1,45 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Prototype2"
+config/tags=PackedStringArray("broken_divinity")
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://assets/icon.svg"
+
+[global_classes]
+
+AbilityResource={
+"base": "Resource",
+"class": "AbilityResource",
+"language": "GDScript",
+"path": "res://scripts/resources/AbilityResource.gd"
+}
+
+[audio]
+
+buses/default_bus_layout=""
+
+[autoload]
+
+AbilityReg="*res://scripts/registries/AbilityReg.gd"
+BuffReg="*res://scripts/registries/BuffReg.gd"
+StatusReg="*res://scripts/registries/StatusReg.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GoNote/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/indent_guidelines/plugin.cfg", "res://addons/scene_tree_as_text/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
+[maaacks_game_template]
+
+disable_install_audio_busses=true
+disable_update_check=false
+disable_install_wizard=true
