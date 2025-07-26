@@ -6,7 +6,27 @@
 
 ---
 
-## Dev Log 0.1.1 · 2025‑07‑25
+## Dev Log 0.1.2 · 2025-07-26
+
+### ✨ Highlights
+
+* **BattleManager: configurable max_rounds** — cap infinite loops in turn-based combat
+* **BattleManager: filter dead units** — get_enemies now ignores units with hp ≤ 0
+* **Test suite expanded** — updated tests to include max_rounds cap; all 19 GUT tests passing
+
+*End of Dev Log 0.1.2*
+
+## Dev Log 0.1.3 · 2025-07-26
+
+### ✨ Highlights
+
+* **Spawner refactored** — EntitySpawner now auto-loads base EntityScene by default.
+* **UI improvements** — InitiativeBar signal binding and error handling tightened.
+* **Version bump** — project updated to 0.1.3.
+
+*End of Dev Log 0.1.3*
+
+## Dev Log 0.1.1 · 2025-07-25
 
 ---
 
