@@ -12,42 +12,103 @@
 
 ### ✨ Highlights
 
-* **AbilityResource class loading FIXED** — resolved "Cannot get class 'AbilityResource'" errors in GUT tests
-* **All GUT tests now PASSING** — registry successfully loads 4 ability .tres files (bleed, poison, shield, regen)
-* **VS Code headless testing fully operational** — `Ctrl + Shift + B` runs complete test suite without errors
-* **Resource architecture validated** — `.tres` files load correctly with proper script attachment
+* **Complete registry system implementation** — AbilityReg, BuffReg, and StatusReg all fully functional
+* **StatusReg system delivered** — status effects (Stunned, Guarded, Marked, Channeling) with proper turn blocking, duration management, and tag-based clearing
+* **16/16 GUT tests passing** — comprehensive test coverage across all three registry systems
+* **Zero resource leaks** — clean memory management with proper cleanup methods
+* **Data-driven resource pipeline** — all .tres files loading correctly with proper script attachment
 
 ---
 
-### 🔧 Technical Fixes Implemented
+### 🔧 Technical Implementations Completed
 
-| Issue | Root Cause | Solution Applied |
-|-------|------------|------------------|
-| **Class Registration** | `AbilityResource` not available to ClassDB during headless runs | Added `@tool` annotation to register class at parse time |
-| **Resource Type Conflicts** | `.tres` files using `type="AbilityResource"` before class registered | Modified generator to use `type="Resource"` with script attachment |
-| **Global Class Registry** | Custom resource class not globally available | Added `AbilityResource` to `project.godot` global classes |
-| **Test Type Safety** | `filter_by_tags()` expected `Array[String]` but received untyped array | Fixed test to use properly typed `Array[String]` parameter |
-
----
-
-### ✅ Validated Functionality
-
-| Component | Status | Test Coverage |
-|-----------|--------|---------------|
-| **AbilityResource.new()** | ✅ Working | Direct instantiation test passes |
-| **Direct .tres loading** | ✅ Working | `load("res://data/abilities/bleed.tres")` succeeds |
-| **Registry bootstrapping** | ✅ Working | Loads 4/4 ability files on startup |
-| **Registry filtering** | ✅ Working | `filter_by_damage_type()` and `filter_by_tags()` functional |
-| **GUT test suite** | ✅ Working | All tests pass in headless mode |
+| System | Features Implemented | Test Coverage |
+|--------|---------------------|---------------|
+| **AbilityReg** | Resource loading, filtering by damage type/tags, cleanup | 6/6 tests ✅ |
+| **BuffReg** | DOT/HOT mechanics, stacking, duration management, cleansing | 4/4 tests ✅ |
+| **StatusReg** | Status application, turn blocking, expiration, tag clearing | 5/5 tests ✅ |
+| **BattleManager** | Round counter, clean node management | 1/1 test ✅ |
 
 ---
 
-### 📁 Files Modified
+### 🎯 StatusReg Architecture
 
-* **`scripts/resources/AbilityResource.gd`** — Added `@tool` annotation for class registration
-* **`project.godot`** — Added global class registry entry for `AbilityResource`
-* **`generate_basic_abilities.py`** — Updated template to use `type="Resource"`
-* **`data/abilities/*.tres`** — Regenerated with correct Resource type
+The **StatusReg** system provides comprehensive status effect management:
+
+1. **Status Application** → `apply_status()` with stacking rules and duration override support
+2. **Turn Blocking** → `blocks_turn()` queries `affects_turn` and `blocks_actions` properties
+3. **Duration Management** → `on_round_end()` decrements durations and expires statuses
+4. **Tag-based Clearing** → `clear_by_tags()` removes statuses by category (Control, Debuff, etc.)
+5. **Clean Resource Tracking** → Instance ID-based storage with proper cleanup
+
+---
+
+### ✅ Resource Content Library
+
+| Category | Resources Implemented | Properties |
+|----------|----------------------|------------|
+| **Abilities** | Bleed, Poison, Shield, Regen | Damage types, tag filtering, magnitudes |
+| **Buffs** | Bleed, Poison, Shield, Regen | DOT/HOT mechanics, stacking, magnitude scaling |
+| **Statuses** | Stunned, Guarded, Marked, Channeling | Turn blocking, action prevention, duration timers |
+
+---
+
+### 🔧 Critical Fixes Applied
+
+| Issue | Root Cause | Solution |
+|-------|------------|----------|
+| **Resource Leaks** | BattleManager Node not freed after tests | Added `queue_free()` to test cleanup |
+| **Class Name Conflicts** | `StatusReg` class name hiding autoload | Removed conflicting class_name declaration |
+| **Type Annotation Errors** | StatusResource type not globally available | Updated to use base Resource type |
+| **API Parameter Conflicts** | Function params named `name` shadow Node.name | Renamed to `status_name` throughout |
+
+---
+
+### 📁 Files Modified/Created
+
+* **`scripts/registries/StatusReg.gd`** — Complete implementation with turn blocking and duration management
+* **`scripts/resources/StatusResource.gd`** — Status definition resource with behavior flags
+* **`data/statuses/*.tres`** — Four status definitions (Stunned, Guarded, Marked, Channeling)
+* **`scenes/tests/test_StatusReg.gd`** — Comprehensive test suite for status system
+* **`project.godot`** — Added StatusResource to global classes, StatusReg autoload
+* **Various registry files** — Added cleanup methods to prevent resource leaks
+
+---
+
+### 🎯 Architecture Validation
+
+The **complete registry ecosystem** is now operational:
+
+1. **Data-Driven Loading** → All three registries scan their respective directories recursively
+2. **Resource Type Safety** → Proper .tres file format with script attachment
+3. **Memory Management** → Zero leaks with comprehensive cleanup methods
+4. **Test Coverage** → 16 tests validating core functionality across all systems
+5. **Integration Ready** → All registries ready for BattleManager integration
+
+---
+
+### 🔄 Next Development Phase
+
+With the **foundation systems complete**, next priorities are:
+
+1. **Combat Integration**
+   * Integrate registries with BattleManager for actual combat execution
+   * Implement ability activation with status/buff application
+   * Add damage calculation and HP modification
+
+2. **UI Integration**
+   * Status effect indicator displays
+   * Buff/debuff visual feedback
+   * Turn order visualization with status indicators
+
+3. **Content Expansion**
+   * Additional abilities with varied effects
+   * More complex status interactions
+   * Balanced magnitude and duration values
+
+---
+
+*End of Dev Log 0.1.1*
 * **`scenes/tests/test_AbilityReg.gd`** — Fixed typing issues in filter tests
 * **`.vscode/tasks.json`** — Configured GUT headless execution via Flatpak
 

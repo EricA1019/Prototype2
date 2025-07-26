@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/BuffResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+resource_name = "Shield"
+display_name = "Shield"
+tags = ["Buff", "Shield"]
+damage_type = "Holy"
+is_dot = false
+is_hot = false
+is_shield = true
+base_magnitude = 0
+base_duration = 3
+max_stacks = -1
+shield_amount = 10
+icon_path = ""
+

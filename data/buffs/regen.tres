@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/BuffResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+resource_name = "Regen"
+display_name = "Regen"
+tags = ["HOT", "Regen"]
+damage_type = "Holy"
+is_dot = false
+is_hot = true
+is_shield = false
+base_magnitude = 2
+base_duration = 3
+max_stacks = -1
+shield_amount = 0
+icon_path = ""
+

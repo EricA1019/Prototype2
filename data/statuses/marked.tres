@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/StatusResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+resource_name = "Marked"
+display_name = "Marked"
+tags = ["Debuff", "Marked"]
+affects_turn = false
+blocks_actions = false
+is_binary = true
+base_duration = 3
+max_stacks = 1
+icon_path = ""
+grants_immunity_tags = []

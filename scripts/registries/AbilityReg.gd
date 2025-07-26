@@ -11,7 +11,6 @@
 # Autoload singleton must extend Node and have a unique class name
 extends Node
 class_name AbilityRegistry                     # ← NOTE: Autoload name = "AbilityReg"
-const _DUMMY_ABILITY_RESOURCE = preload("res://scripts/resources/AbilityResource.gd")  # preload script to register AbilityResource class
 # ─── Signals ────────────────────────────────────────────────────────────────
 signal ability_registered(name : String)
 
@@ -30,6 +29,21 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	_bootstrap()
+
+func _exit_tree() -> void:
+	# Clean up resources to prevent leaks
+	_cleanup()
+
+# Clean up all stored resources and references
+func _cleanup():
+	# Clear and unreference all resources
+	for key in _abilities.keys():
+		var resource = _abilities[key]
+		if resource != null:
+			resource = null
+	_abilities.clear()
+	
+	print_rich("[color=yellow][AbilityReg] Cleanup complete[/color]")
 
 # ────────────────────────────────────────────────────────────────────────────
 ##  Public API                                                               ##
@@ -64,7 +78,8 @@ func filter_by_damage_type(dmg_type : String) -> Array:
 ## Scans `abilities_root` recursively, registers each `.tres`/`.res` Ability.
 func _bootstrap() -> void:
 	print("[AbilityReg] Bootstrapping from %s" % abilities_root)
-	_abilities.clear()
+	# Clear and release any existing resources
+	_cleanup()
 	_scan_dir_recursive(abilities_root)
 	print("[AbilityReg] Registered %d abilities" % _abilities.size())
 

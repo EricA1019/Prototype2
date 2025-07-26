@@ -22,6 +22,12 @@ func before_each():
 	if reg.list_names().size() == 0:
 		reg._bootstrap()
 
+func after_each():
+	# Clean up ability registry after each test to prevent resource leaks
+	var reg = _ability_reg()
+	if reg != null and reg.has_method("_cleanup"):
+		reg._cleanup()
+
 # ─── Tests ─────────────────────────────────────────────────────────────────
 func test_ability_resource_class_exists() -> void:
 	# Test that we can create an AbilityResource directly

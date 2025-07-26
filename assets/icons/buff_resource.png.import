@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhmu20bhxbs3n"
-path="res://.godot/imported/ability_resource.png-24b43e32b94ffeaa43720ee40eeb2280.ctex"
+uid="uid://b84dpljvi0dpe"
+path="res://.godot/imported/buff_resource.png-1e8ceb53df69fbcd8c55c9bbcb853e44.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/ability_resource.png"
-dest_files=["res://.godot/imported/ability_resource.png-24b43e32b94ffeaa43720ee40eeb2280.ctex"]
+source_file="res://assets/icons/buff_resource.png"
+dest_files=["res://.godot/imported/buff_resource.png-1e8ceb53df69fbcd8c55c9bbcb853e44.ctex"]
 
 [params]
 

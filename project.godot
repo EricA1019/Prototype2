@@ -23,6 +23,18 @@ AbilityResource={
 "language": "GDScript",
 "path": "res://scripts/resources/AbilityResource.gd"
 }
+BuffResource={
+"base": "Resource",
+"class": "BuffResource",
+"language": "GDScript",
+"path": "res://scripts/resources/BuffResource.gd"
+}
+StatusResource={
+"base": "Resource",
+"class": "StatusResource",
+"language": "GDScript",
+"path": "res://scripts/resources/StatusResource.gd"
+}
 
 [audio]
 
