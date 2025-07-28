@@ -1,0 +1,22 @@
+[gd_scene load_steps=9 format=3 uid="uid://72asf8u4l5k1"]
+
+[ext_resource type="Script" uid="uid://go086ah7ogpn" path="res://scripts/combat/Entity.gd" id="1"]
+[ext_resource type="Script" uid="uid://bumuuib8vkq33" path="res://scripts/combat/AbilityContainer.gd" id="2"]
+[ext_resource type="Resource" path="res://data/abilities/bleed.tres" id="3_k4x7j"]
+[ext_resource type="Resource" path="res://data/abilities/poison.tres" id="4_en044"]
+[ext_resource type="Resource" path="res://data/abilities/regen.tres" id="5_axgsi"]
+[ext_resource type="Resource" path="res://data/abilities/shield.tres" id="6_r5w6m"]
+[ext_resource type="Texture2D" uid="uid://dldcsce7qxws5" path="res://assets/entities/sprite_detective.png" id="7_k4x7j"]
+[ext_resource type="Resource" uid="uid://dw8hunsauo3ys" path="res://data/entities/detective.tres" id="8_detective"]
+
+[node name="Entity" type="Node"]
+script = ExtResource("1")
+data = ExtResource("8_detective")
+
+[node name="AbilityContainer" type="Node" parent="."]
+script = ExtResource("2")
+ability_names = [ExtResource("3_k4x7j"), ExtResource("4_en044"), ExtResource("5_axgsi"), ExtResource("6_r5w6m")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("7_k4x7j")

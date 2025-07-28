@@ -12,7 +12,7 @@
 # ║ Updated : 2025‑07‑26                                                     ║
 # ╚══════════════════════════════════════════════════════════════════════════╝
 @tool
-@icon("res://assets/icons/status_resource.svg")
+@icon("res://assets/textures/icons/icon_status_resource.png")
 extends Resource
 class_name StatusResource
 # ─── Exported fields (visible in Inspector) ────────────────────────────────

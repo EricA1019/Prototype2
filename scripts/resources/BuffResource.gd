@@ -16,7 +16,7 @@
 # ║ Updated : 2025‑07‑26                                                     ║
 # ╚══════════════════════════════════════════════════════════════════════════╝
 @tool
-#@icon("res://assets/icons/buff_resource.svg")
+@icon("res://assets/textures/icons/icon_buff_resource.png")
 extends Resource
 class_name BuffResource
 

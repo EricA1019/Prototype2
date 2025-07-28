@@ -1,0 +1,16 @@
+func test_stat_block():
+    var stat_block = StatBlock.new()
+    stat_block.set_stat("health", 100)
+    assert(stat_block.get_stat("health") == 100)
+    
+    stat_block.set_stat("mana", 50)
+    assert(stat_block.get_stat("mana") == 50)
+    
+    stat_block.set_stat("health", 80)
+    assert(stat_block.get_stat("health") == 80)
+    
+    stat_block.set_stat("stamina", 30)
+    assert(stat_block.get_stat("stamina") == 30)
+    
+    stat_block.remove_stat("mana")
+    assert(stat_block.get_stat("mana") == null)

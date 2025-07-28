@@ -1,37 +1,52 @@
+
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Run GUT headless",
-      "type": "shell",
-      "command": "flatpak-spawn",
-      "args": [
-        "--host",
-        "godot4",
-        "--headless",
-        "-s", "addons/gut/cli/gut_cli.gd",
-        "-gdir=res://scenes/tests"
-      ],
-      "group": { "kind": "test", "isDefault": true },
-      "problemMatcher": []
-    },
-    {
-      "label": "Run BattleTest",
-      "type": "shell",
-      "command": "flatpak-spawn",
-      "args": [
-        "--host",
-        "godot4",
-        "--path", "${workspaceFolder}",
-        "-s", "res://scripts/LaunchBattleTest.gd"
-      ],
-      "problemMatcher": []
-    }
-],
-"files.exclude": {
-  "**/*.rpyc": true,
-  "**/*.rpa": true,
-  "**/*.rpymc": true,
-  "**/cache/": true
+	// ──────────────────────────────────────────────────────────────────────────
+	// Copilot Agent — ALWAYS PROMPT BEFORE RUNNING ANYTHING
+	// ──────────────────────────────────────────────────────────────────────────
+	"chat.agent.enabled": true,
+	"github.copilot.chat.agent.runTasks": true,      // agent can propose tasks, but you'll confirm
+	"github.copilot.chat.agent.autoFix": true,      // autonomous fix loops
+	"chat.tools.autoApprove": false,                 // never auto‑approve tools/commands
+	"github.copilot.chat.agent.terminal.allowList": {},
+	"github.copilot.chat.agent.terminal.denyList": {
+		"rm": true, "rmdir": true, "del": true, "kill": true,
+		"curl": true, "wget": true, "eval": true,
+		"chmod": true, "chown": true, "sudo": true
+	},
+
+	// ──────────────────────────────────────────────────────────────────────────
+	// Copilot Edits — manual control
+	// ──────────────────────────────────────────────────────────────────────────
+	"chat.editing.autoAcceptDelay": 0,
+	"chat.editing.confirmEditRequestRemoval": true,
+	"chat.editing.confirmEditRequestRetry": true,
+	"chat.editor.wordWrap": "on",
+	"chat.editor.lineHeight": 0,
+
+	// Inline suggestions
+	"editor.inlineSuggest.enabled": true,
+
+	// ──────────────────────────────────────────────────────────────────────────
+	// Terminal safety & QoL
+	// ──────────────────────────────────────────────────────────────────────────
+	"terminal.integrated.confirmOnExit": "always",
+	"terminal.integrated.confirmOnKill": "always",
+	"terminal.integrated.cwd": "${workspaceFolder}",
+	"task.quickOpen.showAll": true,
+
+	// ──────────────────────────────────────────────────────────────────────────
+	// Godot path & file hygiene
+	// ──────────────────────────────────────────────────────────────────────────
+	"godotTools.editorPath.godot4": "/home/eric/Desktop/Godot_v4.5-beta3_linux.x86_64",
+	"files.exclude": {
+		"**/*.rpyc": true,
+		"**/*.rpa": true,
+		"**/*.rpymc": true,
+		"**/cache/": true
+	},
+	"files.watcherExclude": {
+		"**/.godot/**": true
+	}
 }
-}
+
+

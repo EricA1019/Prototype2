@@ -9,7 +9,7 @@
 # ║ Updated : 2025‑07‑25                                                   ║
 # ╚══════════════════════════════════════════════════════════════════════════╝
 @tool
-@icon("res://assets/icons/ability_resource.png")
+@icon("res://assets/textures/icons/icon_ability_resource.png")
 extends Resource
 class_name AbilityResource
 

@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="Prototype2"
-config/version="0.1.3"
+config/version="0.1.3.1"
 config/tags=PackedStringArray("broken_divinity")
+run/main_scene="uid://bdv7yj8yfj5og"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
@@ -26,9 +27,19 @@ AbilityReg="*res://scripts/registries/AbilityReg.gd"
 BuffReg="*res://scripts/registries/BuffReg.gd"
 StatusReg="*res://scripts/registries/StatusReg.gd"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GoNote/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/indent_guidelines/plugin.cfg", "res://addons/scene_tree_as_text/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://scenes/battle/": "red"
+}
 
 [global_classes]
 
@@ -49,6 +60,18 @@ StatusResource={
 "class": "StatusResource",
 "language": "GDScript",
 "path": "res://scripts/resources/StatusResource.gd"
+}
+StatBlockResource={
+"base": "Resource",
+"class": "StatBlockResource",
+"language": "GDScript",
+"path": "res://scripts/resources/StatBlockResource.gd"
+}
+EntityResource={
+"base": "Resource",
+"class": "EntityResource",
+"language": "GDScript",
+"path": "res://scripts/resources/EntityResource.gd"
 }
 
 [maaacks_game_template]

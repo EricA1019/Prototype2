@@ -1,0 +1,19 @@
+func test_StatusReg():
+    var status_reg = StatusReg.new()
+
+    # Test initial state
+    assert_eq(status_reg.is_active(), false)
+
+    # Test activating the status
+    status_reg.activate()
+    assert_eq(status_reg.is_active(), true)
+
+    # Test deactivating the status
+    status_reg.deactivate()
+    assert_eq(status_reg.is_active(), false)
+
+    # Test status toggle
+    status_reg.toggle()
+    assert_eq(status_reg.is_active(), true)
+    status_reg.toggle()
+    assert_eq(status_reg.is_active(), false)

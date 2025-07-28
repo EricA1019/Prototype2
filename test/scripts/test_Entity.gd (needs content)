@@ -1,0 +1,24 @@
+func test_entity_creation():
+    var entity = Entity.new()
+    assert(entity != null)
+
+func test_entity_health():
+    var entity = Entity.new()
+    entity.health = 100
+    assert(entity.health == 100)
+
+func test_entity_damage():
+    var entity = Entity.new()
+    entity.health = 100
+    entity.take_damage(20)
+    assert(entity.health == 80)
+
+func test_entity_death():
+    var entity = Entity.new()
+    entity.health = 0
+    assert(entity.is_dead() == true)
+
+func test_entity_edge_case():
+    var entity = Entity.new()
+    entity.health = -10
+    assert(entity.health == 0)

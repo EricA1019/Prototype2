@@ -1,0 +1,245 @@
+{
+  // ───────────────────────── GUT / Tests ─────────────────────────
+  "GUT: file skeleton": {
+    "prefix": "gut-file",
+    "description": "New GUT test file with orphan check",
+    "body": [
+      "extends \"res://addons/gut/test.gd\"",
+      "",
+      "func test_${1:behavior}() -> void:",
+      "\t$0",
+      "",
+      "func test_no_new_orphans() -> void:",
+      "\tassert_no_new_orphans()"
+    ]
+  },
+  "GUT: autoqfree helper": {
+    "prefix": "autoqfree",
+    "description": "Queue free and return the object (works well in tests)",
+    "body": [
+      "autoqfree(${1:obj})"
+    ]
+  },
+  "GUT: add_child_autoqfree": {
+    "prefix": "acaf",
+    "description": "Add to tree and auto-queue-free",
+    "body": [
+      "var ${1:node} := ${2:Node}.new()",
+      "add_child_autoqfree(${1:node})"
+    ]
+  },
+  "GUT: single test run name": {
+    "prefix": "gut-name",
+    "description": "Hint: run with -gunit_test_name=<text>",
+    "body": [
+      "# Run one test:",
+      "# godot4 --headless -s addons/gut/cli/gut_cmdln.gd --path . -gdir=res://scenes/tests -gunit_test_name=${1:name} -gexit -glog=2"
+    ]
+  },
+
+  // ───────────────────────── Logging ─────────────────────────
+  "Log: tagged print": {
+    "prefix": "pTag",
+    "description": "Tagged print with system prefix",
+    "body": [
+      "print(\"[${1:UI}] \", ${2:msg})"
+    ]
+  },
+  "Log: warning": {
+    "prefix": "pwarn",
+    "description": "push_warning with tag",
+    "body": [
+      "push_warning(\"[${1:System}] ${2:message}\")"
+    ]
+  },
+
+  // ───────────────────────── Resources ─────────────────────────
+  "Resource: base": {
+    "prefix": "res-base",
+    "description": "Custom Resource template",
+    "body": [
+      "@tool",
+      "extends Resource",
+      "class_name ${1:MyResource}",
+      "",
+      "@export var ${2:field}: ${3:int} = ${4:0}",
+      "",
+      "func _to_string() -> String:",
+      "\treturn \"[${1:MyResource}]\""
+    ]
+  },
+  "Resource: .tres header": {
+    "prefix": "tres-head",
+    "description": "Godot 4 .tres header with script ext_resource",
+    "body": [
+      "[gd_resource type=\"${1:MyResource}\" load_steps=2 format=3]",
+      "",
+      "[ext_resource type=\"Script\" path=\"res://scripts/resources/${1:MyResource}.gd\" id=\"1\"]",
+      "",
+      "[resource]",
+      "script = ExtResource(\"1\")",
+      "resource_name = \"${2:Name}\""
+    ]
+  },
+
+  // ───────────────────────── Registries ─────────────────────────
+  "Registry: skeleton": {
+    "prefix": "reg-skel",
+    "description": "Data-driven registry skeleton (recursive scan, public API)",
+    "body": [
+      "extends Node",
+      "class_name ${1:FooReg}",
+      "",
+      "signal registered(name:String)",
+      "",
+      "@export var root_path: String = \"res://data/${2:foos}\"",
+      "var _defs: Dictionary = {}",
+      "",
+      "func _ready() -> void:",
+      "\tif Engine.is_editor_hint(): return",
+      "\tbootstrap()",
+      "",
+      "func bootstrap() -> void:",
+      "\t_defs.clear()",
+      "\t_scan(root_path)",
+      "\tprint(\"[${1:FooReg}] loaded\", _defs.size())",
+      "",
+      "func has_def(name:String) -> bool: return _defs.has(name)",
+      "func list_defs() -> Array: return _defs.keys()",
+      "func get_def(name:String) -> Resource: return _defs.get(name, null)",
+      "",
+      "func _scan(path:String) -> void:",
+      "\tvar d := DirAccess.open(path)",
+      "\tif d == null: return",
+      "\td.include_hidden = false",
+      "\td.include_navigational = false",
+      "\td.list_dir_begin()",
+      "\tvar f := d.get_next()",
+      "\twhile f != \"\":",
+      "\t\tvar p := path.path_join(f)",
+      "\t\tif d.current_is_dir():",
+      "\t\t\t_scan(p)",
+      "\t\telse:",
+      "\t\t\tif f.ends_with(\".tres\") or f.ends_with(\".res\"):",
+      "\t\t\t\t_register(p)",
+      "\t\tf = d.get_next()",
+      "\td.list_dir_end()",
+      "",
+      "func _register(res_path:String) -> void:",
+      "\tvar r:Resource = load(res_path)",
+      "\tif r == null:",
+      "\t\tpush_warning(\"[${1:FooReg}] could not load %s\" % res_path)",
+      "\t\treturn",
+      "\tvar key := r.resource_name if r.resource_name != \"\" else res_path.get_file().get_basename()",
+      "\tif _defs.has(key):",
+      "\t\tpush_warning(\"[${1:FooReg}] duplicate %s\" % key)",
+      "\t\treturn",
+      "\t_defs[key] = r",
+      "\temit_signal(\"registered\", key)"
+    ]
+  },
+
+  // ───────────────────────── UI ─────────────────────────
+  "UI: container skeleton": {
+    "prefix": "ui-container",
+    "description": "Structured container with auto-populate API",
+    "body": [
+      "extends Control",
+      "class_name ${1:InitiativeBar}",
+      "",
+      "signal populated(count:int)",
+      "",
+      "@export var fallback_icon: Texture2D",
+      "",
+      "func populate(units:Array) -> void:",
+      "\tprint(\"[UI] populate\", units.size())",
+      "\tclear()",
+      "\tfor u in units:",
+      "\t\t_add_portrait(u)",
+      "\temit_signal(\"populated\", units.size())",
+      "",
+      "func clear() -> void:",
+      "\tfor c in get_children():",
+      "\t\tc.queue_free()",
+      "",
+      "func _add_portrait(u:Node) -> void:",
+      "\tvar tex:Texture2D = fallback_icon",
+      "\tif u != null and u.has_variable(\"data\") and u.data and u.data.portrait_path != \"\":",
+      "\t\tvar t = load(u.data.portrait_path); if t: tex = t",
+      "\tvar btn := TextureButton.new()",
+      "\tbtn.texture_normal = tex",
+      "\tadd_child(btn)"
+    ]
+  },
+
+  // ───────────────────────── Managers ─────────────────────────
+  "Manager: TurnManager skeleton": {
+    "prefix": "turnmgr",
+    "description": "TurnManager minimal structure",
+    "body": [
+      "extends Node",
+      "class_name TurnManager",
+      "",
+      "signal turn_started(actor:Node)",
+      "signal turn_ended(actor:Node)",
+      "signal round_completed()",
+      "",
+      "var _queue:Array = []",
+      "var _i:int = 0",
+      "",
+      "func build_initiative(units:Array) -> void:",
+      "\t_queue = units.filter(func(u): return u and (\"hp\" in u and u.hp > 0))",
+      "\t_queue.sort_custom(func(a,b): return (a.speed==b.speed) ? (a.get_instance_id()<b.get_instance_id()) : (a.speed>b.speed))",
+      "\t_i = 0",
+      "",
+      "func next_turn() -> Node:",
+      "\twhile _i < _queue.size():",
+      "\t\tvar a = _queue[_i]",
+      "\t\tif a and (\"hp\" in a and a.hp > 0):",
+      "\t\t\temit_signal(\"turn_started\", a); return a",
+      "\t\t_i += 1",
+      "\temit_signal(\"round_completed\"); return null",
+      "",
+      "func end_turn(a:Node) -> void:",
+      "\temit_signal(\"turn_ended\", a)",
+      "\t_i += 1",
+      "\tif _i >= _queue.size(): emit_signal(\"round_completed\")"
+    ]
+  },
+
+  // ───────────────────────── Python generators ─────────────────────────
+  "Py: .tres generator": {
+    "prefix": "py-tres-gen",
+    "description": "Python script skeleton to write .tres resources",
+    "body": [
+      "#!/usr/bin/env python3",
+      "from pathlib import Path",
+      "import textwrap, json, sys",
+      "",
+      "ROOT = Path(__file__).parent.resolve()",
+      "OUT = ROOT / \"data\" / \"${1:things}\"",
+      "",
+      "TPL = \"\"\"[gd_resource type=\\\"${2:MyResource}\\\" load_steps=2 format=3]\\n",
+      "[ext_resource type=\\\"Script\\\" path=\\\"res://scripts/resources/${2:MyResource}.gd\\\" id=\\\"1\\\"]\\n\\n",
+      "[resource]\\nscript = ExtResource(\\\"1\\\")\\nresource_name = \\\"{name}\\\"\\n\"\"\"",
+      "",
+      "def write_one(name:str, overwrite=False):",
+      "\tOUT.mkdir(parents=True, exist_ok=True)",
+      "\tp = OUT / f\"{name.lower()}.tres\"",
+      "\tif p.exists() and not overwrite:",
+      "\t\tprint(f\"skip {p}\"); return",
+      "\ttext = TPL.format(name=name)",
+      "\tp.write_text(text)",
+      "\tprint(\"wrote\", p.relative_to(ROOT))",
+      "",
+      "def main(argv):",
+      "\tover = \"--force\" in argv",
+      "\tfor n in ${3:[\"Sample\"]}:",
+      "\t\twrite_one(n, over)",
+      "\treturn 0",
+      "",
+      "if __name__ == \"__main__\":",
+      "\tsys.exit(main(sys.argv[1:]))"
+    ]
+  }
+}

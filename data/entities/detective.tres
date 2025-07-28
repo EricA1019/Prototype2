@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dw8hunsauo3ys"]
+
+[ext_resource type="Script" path="res://scripts/resources/EntityResource.gd" id="1"]
+[ext_resource type="Resource" path="res://data/entities/statblocks/detective_stats.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Detective"
+team = "friends"
+portrait_path = "res://assets/portraits/detective_portait.png"
+sprite_path = "res://assets/entities/sprite_detective.png"
+stat_block = ExtResource("2")
+abilities = ["Shield", "Regen"]
+starting_buffs = ["Shield"]
+ai_profile = "basic_support"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/EntityResource.gd" id="1"]
+[ext_resource type="Resource" path="res://data/entities/statblocks/imp_stats.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+resource_name = "Imp"
+display_name = "Imp"
+team = "foes"
+portrait_path = "res://assets/missing_asset.png"
+sprite_path = "res://assets/missing_asset.png"
+stat_block = ExtResource("2")
+defense_type = "Infernal"
+resistances = {"Physical": 1.0, "Infernal": 1.0, "Holy": 1.0}
+abilities = ["Poison", "Bleed"]
+starting_buffs = []
+starting_statuses = []
+ai_profile = "basic_dps"

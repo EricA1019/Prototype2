@@ -1,24 +1,127 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Run GUT headless",
-      "type": "shell",
-      "command": "flatpak-spawn",
-      "args": [
-        "--host",
-        "godot4",
-        "-d", "--headless",
-        "-s", "addons/gut/gut_cmdln.gd",
-        "--path", "${workspaceFolder}",
-        "-gdir=res://scenes/tests",
-        "-ginclude_subdirs",
-        "-gexit",
-        "-glog=2"
-      ],
-      "group": { "kind": "test", "isDefault": true },
-      "presentation": { "reveal": "always", "panel": "dedicated" },
-      "problemMatcher": []
-    }
-  ]
+	"version": "2.0.0",
+	"inputs": [
+		{
+			"id": "godotBin",
+			"type": "pickString",
+			"description": "Godot binary to use",
+			"options": ["godot4", "flatpak-spawn --host godot4"],
+			"default": "flatpak-spawn --host godot4"
+		},
+		{
+			"id": "scenePath",
+			"type": "promptString",
+			"description": "Scene to run (res://…)",
+			"default": "res://scenes/tests/TestHost.tscn"
+		},
+		{
+			"id": "testDir",
+			"type": "pickString",
+			"description": "Choose test directory",
+			"options": [
+				"res://test/scripts",
+				"res://test/scripts/ui",
+				"res://scenes/tests"
+			],
+			"default": "res://test/scripts"
+		},
+		{
+			"id": "testScript",
+			"type": "promptString",
+			"description": "Full path to a test script (res://…)",
+			"default": "res://test/scripts/test_BattleFlow.gd"
+		},
+		{
+			"id": "testName",
+			"type": "promptString",
+			"description": "Run tests containing this name (-gunit_test_name)",
+			"default": ""
+		},
+		{
+			"id": "junitFile",
+			"type": "promptString",
+			"description": "Export JUnit XML to file",
+			"default": "res://.gut_reports/junit.xml"
+		}
+	],
+	"tasks": [
+		{
+			"label": "Build (noop)",
+			"type": "shell",
+			"command": "echo Build step (noop)",
+			"group": { "kind": "build", "isDefault": true },
+			"problemMatcher": []
+		},
+		{
+			"label": "Godot: Run Scene",
+			"type": "shell",
+			"command": "${input:godotBin} -d --path . ${input:scenePath}",
+			"problemMatcher": [],
+			"options": { "shell": { "executable": "bash", "args": ["-lc"] } },
+			"runOptions": { "reevaluateOnRerun": true }
+		},
+		{
+			"label": "Godot: Run BattleTest",
+			"type": "shell",
+			"command": "${input:godotBin} --path . -s res://scripts/LaunchBattleTest.gd",
+			"problemMatcher": [],
+			"options": { "shell": { "executable": "bash", "args": ["-lc"] } }
+		},
+		{
+			"label": "GUT: All",
+			"type": "shell",
+			"command": "${input:godotBin} --headless -d -s addons/gut/gut_cmdln.gd --path . -gdir=${input:testDir} -ginclude_subdirs -gexit -glog=2",
+			"group": { "kind": "test", "isDefault": true },
+			"problemMatcher": [],
+			"options": { "shell": { "executable": "bash", "args": ["-lc"] } },
+			"runOptions": { "reevaluateOnRerun": true }
+		},
+		{
+			"label": "GUT: Single Script",
+			"type": "shell",
+			"command": "${input:godotBin} --headless -d -s addons/gut/gut_cmdln.gd --path . -gtest=${input:testScript} -gexit -glog=2",
+			"group": "test",
+			"problemMatcher": [],
+			"options": { "shell": { "executable": "bash", "args": ["-lc"] } }
+		},
+		{
+			"label": "GUT: By Name",
+			"type": "shell",
+			"command": "${input:godotBin} --headless -d -s addons/gut/gut_cmdln.gd --path . -gdir=${input:testDir} -ginclude_subdirs -gunit_test_name=${input:testName} -gexit -glog=2",
+			"group": "test",
+			"problemMatcher": [],
+			"options": { "shell": { "executable": "bash", "args": ["-lc"] } }
+		},
+		{
+			"label": "GUT: JUnit Export",
+			"type": "shell",
+			"command": "${input:godotBin} --headless -d -s addons/gut/gut_cmdln.gd --path . -gdir=res://test/scripts -ginclude_subdirs -gexit -glog=2 -gjunit_xml_file=${input:junitFile} -gjunit_xml_timestamp=true",
+			"group": "test",
+			"problemMatcher": [],
+			"options": { "shell": { "executable": "bash", "args": ["-lc"] } }
+		},
+		{
+			"label": "Chain: Run Scene",
+			"dependsOrder": "sequence",
+			"dependsOn": ["Build (noop)", "Godot: Run Scene"]
+		},
+		{
+			"label": "Chain: Test All",
+			"dependsOrder": "sequence",
+			"dependsOn": ["Build (noop)", "GUT: All"]
+		},
+		{
+			"label": "Godot: Open Editor",
+			"type": "shell",
+			"command": "${input:godotBin} --editor --path .",
+			"problemMatcher": [],
+			"options": { "shell": { "executable": "bash", "args": ["-lc"] } }
+		},
+		{
+			"label": "Python: Generate Content",
+			"type": "shell",
+			"command": "python3 ${file}",
+			"problemMatcher": []
+		}
+	]
 }
