@@ -1,0 +1,11 @@
+{
+  "palette": {
+    "shadow":      "#352C23",
+    "outline":     "#502621",
+    "primary":     "#922E11",
+    "secondary":   "#8C5D34",
+    "mid_tone":    "#4D422F",
+    "highlight":   "#E0AA55",
+    "bg_accent":   "#39402C"
+  }
+}

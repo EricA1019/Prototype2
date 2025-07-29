@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Prototype2"
-config/version="0.1.3.1"
+config/version="0.1.5"
 config/tags=PackedStringArray("broken_divinity")
 run/main_scene="uid://bdv7yj8yfj5og"
 config/features=PackedStringArray("4.5", "Forward Plus")

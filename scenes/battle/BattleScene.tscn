@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdv7yj8yfj5og"]
+[gd_scene load_steps=10 format=3 uid="uid://bdv7yj8yfj5og"]
 
 [ext_resource type="Script" uid="uid://cq8rtduq484g4" path="res://scripts/combat/BattleScene.gd" id="1"]
 [ext_resource type="Script" uid="uid://nvibru871jlh" path="res://scripts/combat/EntitySpawner.gd" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cbdpn411f2t67" path="res://scenes/ui/UnitCard.tscn" id="6"]
 [ext_resource type="Texture2D" uid="uid://bry7otmjfpgb1" path="res://assets/missing_asset.png" id="7_5282s"]
 [ext_resource type="Script" uid="uid://sfmf3nxsd1bq" path="res://scripts/combat/Camera2DCustom.gd" id="8"]
+[ext_resource type="PackedScene" uid="uid://bmhk8v1wxp7ks" path="res://scenes/ui/CombatLog.tscn" id="9"]
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource("1")
@@ -37,20 +38,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="InitiativeBar" parent="CanvasLayer/UI" instance=ExtResource("5")]
+clip_contents = true
 anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_left = -200.0
 offset_right = 200.0
-offset_top = 10.0
 offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 0
-clip_contents = true
-alignment = 1
 fallback_icon = ExtResource("7_5282s")
 
 [node name="UnitCard" parent="CanvasLayer/UI" instance=ExtResource("6")]
@@ -63,3 +57,6 @@ offset_top = 80.0
 offset_right = -10.0
 offset_bottom = 160.0
 fallback_icon = ExtResource("7_5282s")
+
+[node name="CombatLog" parent="CanvasLayer/UI" instance=ExtResource("9")]
+layout_mode = 1

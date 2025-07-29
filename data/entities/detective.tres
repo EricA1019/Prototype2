@@ -1,10 +1,9 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dw8hunsauo3ys"]
+[gd_resource type="Resource" script_class="EntityRes" load_steps=3 format=3 uid="uid://dw8hunsauo3ys"]
 
 [ext_resource type="Script" uid="uid://dk5mjm0w1du6v" path="res://scripts/resources/EntityResource.gd" id="1"]
-[ext_resource type="Resource" path="res://data/entities/statblocks/detective_stats.tres" id="2"]
+[ext_resource type="Resource" uid="uid://b3nkcbw5yqnh7" path="res://data/entities/statblocks/detective_stats.tres" id="2"]
 
 [resource]
-resource_local_to_scene = false
 resource_name = "Detective"
 script = ExtResource("1")
 display_name = "Detective"

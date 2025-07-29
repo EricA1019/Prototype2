@@ -3,16 +3,53 @@
 # ------------------------------------------------------------------
 extends Node
 class_name BattleManager
+
+# Existing signals
 signal turn_order_built(units:Array)
 signal turn_ended(actor:Node)
 signal turn_started(actor:Node)
-
 signal battle_ended(result)
+
+# New signals for Combat Log
+signal round_started(round_number:int)
+signal damage_dealt(attacker:Node, target:Node, amount:int, dtype:String)
+signal status_applied(target:Node, status_name:String)
+signal buff_applied(target:Node, buff_name:String)
+signal dot_tick(target:Node, damage:int, effect_name:String)
 
 var tm: Node = null   # TurnManager
 var current_round: int = 0
 var initiative_queue: Array = []
 @export var max_rounds: int = 100  # cap at 100 rounds to avoid endless loops (set -1 for no cap)
+
+func _ready() -> void:
+	# Connect to registry signals to forward them
+	_connect_to_registries()
+
+func _connect_to_registries() -> void:
+	# Connect BuffReg signals
+	var buff_reg = get_node_or_null("/root/BuffReg")
+	if buff_reg:
+		if not buff_reg.buff_applied.is_connected(_on_buff_reg_buff_applied):
+			buff_reg.buff_applied.connect(_on_buff_reg_buff_applied)
+		if not buff_reg.tick_damage.is_connected(_on_buff_reg_tick_damage):
+			buff_reg.tick_damage.connect(_on_buff_reg_tick_damage)
+	
+	# Connect StatusReg signals if available
+	var status_reg = get_node_or_null("/root/StatusReg")
+	if status_reg and status_reg.has_signal("status_applied"):
+		if not status_reg.status_applied.is_connected(_on_status_reg_status_applied):
+			status_reg.status_applied.connect(_on_status_reg_status_applied)
+
+# Signal forwarding methods
+func _on_buff_reg_buff_applied(target: Node, buff_name: String, _stacks: int, _duration: int) -> void:
+	emit_signal("buff_applied", target, buff_name)
+
+func _on_buff_reg_tick_damage(target: Node, buff_name: String, amount: int, _damage_type: String) -> void:
+	emit_signal("dot_tick", target, amount, buff_name)
+
+func _on_status_reg_status_applied(target: Node, status_name: String) -> void:
+	emit_signal("status_applied", target, status_name)
 
 # Getter method for round access (avoiding shadowing built-in function)
 func get_round() -> int:
@@ -52,6 +89,8 @@ func _rebuild_queue(units: Array) -> void:
 
 func _run_round() -> void:
 	print("[CombatMgr] === ROUND %d START ===" % current_round)
+	emit_signal("round_started", current_round)
+	
 	if tm:
 		# Use TurnManager for proper turn handling with status blocking
 		tm.build_initiative(initiative_queue)
@@ -100,6 +139,8 @@ func damage(target: Node, amount: int, _type: String = "Physical") -> void:
 	if target.has_method("apply_damage"):
 		target.apply_damage(amount)
 		print("[CombatMgr] %s takes %d damage (HP: %d)" % [target.name, amount, target.hp])
+		# Emit damage_dealt signal for combat log
+		emit_signal("damage_dealt", null, target, amount, _type)
 
 func _check_victory() -> bool:
 	var friends_alive: Array = []

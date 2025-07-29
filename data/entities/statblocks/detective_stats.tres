@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="StatBlockResource" load_steps=2 format=3 uid="uid://b3nkcbw5yqnh7"]
 
-[ext_resource type="Script" path="res://scripts/resources/StatBlockResource.gd" id="1"]
+[ext_resource type="Script" uid="uid://fp1tqeemrdbk" path="res://scripts/resources/StatBlockResource.gd" id="1"]
 
 [resource]
-script = ExtResource("1")
 resource_name = "DetectiveStats"
+script = ExtResource("1")
 hp_max = 36
 speed = 11
 attack = 7

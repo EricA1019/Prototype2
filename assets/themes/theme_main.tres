@@ -1,0 +1,139 @@
+[gd_resource type="Theme" load_steps=12 format=3]
+
+[sub_resource type="StyleBoxFlat" id="1"] # Panel / Frame
+bg_color = Color(0.07, 0.06, 0.06, 1.0)        # near-black
+border_width_all = 2
+border_color = Color(0.40, 0.28, 0.14, 1.0)    # bronze edge
+corner_radius_all = 6
+shadow_color = Color(0, 0, 0, 0.55)
+shadow_size = 8
+draw_center = true
+
+[sub_resource type="StyleBoxFlat" id="2"] # Button Normal
+bg_color = Color(0.08, 0.07, 0.07, 1.0)
+border_width_all = 2
+border_color = Color(0.38, 0.26, 0.12, 1.0)
+corner_radius_all = 6
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.50)
+
+[sub_resource type="StyleBoxFlat" id="3"] # Button Hover
+bg_color = Color(0.11, 0.09, 0.08, 1.0)
+border_width_all = 2
+border_color = Color(0.72, 0.58, 0.32, 1.0)    # warm gold
+corner_radius_all = 6
+shadow_size = 10
+shadow_color = Color(0.0, 0.0, 0.0, 0.60)
+
+[sub_resource type="StyleBoxFlat" id="4"] # Button Pressed
+bg_color = Color(0.06, 0.05, 0.05, 1.0)
+border_width_all = 2
+border_color = Color(0.86, 0.72, 0.40, 1.0)    # brighter gold
+corner_radius_all = 6
+shadow_size = 4
+shadow_color = Color(0.0, 0.0, 0.0, 0.65)
+
+[sub_resource type="StyleBoxFlat" id="5"] # Button Disabled
+bg_color = Color(0.08, 0.07, 0.07, 1.0)
+border_width_all = 2
+border_color = Color(0.20, 0.16, 0.12, 1.0)
+corner_radius_all = 6
+
+[sub_resource type="StyleBoxFlat" id="6"] # Button Focus (outline only)
+bg_color = Color(0, 0, 0, 0)
+draw_center = false
+border_width_all = 2
+border_color = Color(0.90, 0.78, 0.45, 1.0)
+corner_radius_all = 6
+
+[sub_resource type="StyleBoxFlat" id="7"] # ProgressBar Background
+bg_color = Color(0.10, 0.08, 0.08, 1.0)
+border_width_all = 2
+border_color = Color(0.30, 0.20, 0.12, 1.0)
+corner_radius_all = 4
+
+[sub_resource type="StyleBoxFlat" id="8"] # ProgressBar Fill (HP red)
+bg_color = Color(0.45, 0.07, 0.07, 1.0)        # deep red
+border_width_all = 0
+corner_radius_all = 3
+
+[sub_resource type="StyleBoxFlat" id="9"] # Tooltip Panel
+bg_color = Color(0.05, 0.04, 0.04, 0.98)
+border_width_all = 2
+border_color = Color(0.72, 0.58, 0.32, 1.0)
+corner_radius_all = 6
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="StyleBoxFlat" id="10"] # TextureButton Focus (outline for portraits)
+bg_color = Color(0, 0, 0, 0)
+draw_center = false
+border_width_all = 2
+border_color = Color(0.95, 0.82, 0.48, 1.0)
+corner_radius_all = 6
+
+[sub_resource type="StyleBoxFlat" id="11"] # PanelContainer panel
+bg_color = Color(0.07, 0.06, 0.06, 1.0)
+border_width_all = 2
+border_color = Color(0.34, 0.24, 0.12, 1.0)
+corner_radius_all = 6
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.5)
+
+[resource]
+# Set this to a TTF/OTF when you add one:
+# default_font = ExtResource("1")
+# default_font_size = 18
+
+# Global palette (usable from code via theme.get_color("text", ""), etc.)
+colors/text            = Color(0.90, 0.86, 0.76, 1.0)   # parchment
+colors/text_muted      = Color(0.70, 0.66, 0.58, 1.0)
+colors/disabled_text   = Color(0.45, 0.42, 0.38, 1.0)
+colors/gold            = Color(0.78, 0.64, 0.34, 1.0)
+colors/bronze          = Color(0.40, 0.28, 0.14, 1.0)
+colors/danger          = Color(0.75, 0.12, 0.12, 1.0)
+colors/background      = Color(0.06, 0.05, 0.05, 1.0)
+
+# ───────── Label ─────────
+"Label/colors/font_color"      = Color(0.90, 0.86, 0.76, 1.0)
+"Label/colors/font_outline_color" = Color(0, 0, 0, 0.85)
+"Label/constants/outline_size" = 1
+"Label/font_sizes/font_size"   = 18
+
+# ───────── Button ─────────
+"Button/styles/normal"   = SubResource("2")
+"Button/styles/hover"    = SubResource("3")
+"Button/styles/pressed"  = SubResource("4")
+"Button/styles/disabled" = SubResource("5")
+"Button/styles/focus"    = SubResource("6")
+"Button/colors/font_color"        = Color(0.90, 0.86, 0.76, 1.0)
+"Button/colors/font_hover_color"  = Color(0.98, 0.90, 0.62, 1.0)
+"Button/colors/font_pressed_color"= Color(1.00, 0.94, 0.70, 1.0)
+"Button/colors/font_disabled_color"= Color(0.45, 0.42, 0.38, 1.0)
+"Button/font_sizes/font_size"     = 20
+"Button/constants/hseparation"    = 16
+"Button/constants/vseparation"    = 8
+"Button/constants/outline_size"   = 0
+
+# ───────── TextureButton (portraits) ─────────
+"TextureButton/styles/focus"   = SubResource("10")
+"TextureButton/styles/hover"   = SubResource("3")
+"TextureButton/styles/pressed" = SubResource("4")
+
+# ───────── Panel ─────────
+"Panel/styles/panel"           = SubResource("1")
+
+# Also style PanelContainer for framed areas
+"PanelContainer/styles/panel"  = SubResource("11")
+
+# ───────── TooltipPanel ─────────
+"TooltipPanel/styles/panel"    = SubResource("9")
+"TooltipLabel/colors/font_color" = Color(0.96, 0.92, 0.82, 1.0)
+"TooltipLabel/font_sizes/font_size" = 16
+
+# ───────── ProgressBar ─────────
+"ProgressBar/styles/background" = SubResource("7")
+"ProgressBar/styles/fill"       = SubResource("8")
+"ProgressBar/colors/font_color" = Color(0.90, 0.86, 0.76, 1.0)
+"ProgressBar/font_sizes/font_size" = 14
+"ProgressBar/constants/outline_size" = 0
