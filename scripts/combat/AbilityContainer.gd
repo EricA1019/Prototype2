@@ -1,6 +1,6 @@
 @icon("res://assets/textures/icons/icon_ability_container.png")# Holds an entity's abilities, resolved from names via AbilityReg.
 extends Node
-class_name AbilityContainer
+class_name AbilityCont
 
 signal abilities_resolved(names: Array)
 

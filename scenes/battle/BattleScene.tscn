@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://nvibru871jlh" path="res://scripts/combat/EntitySpawner.gd" id="2"]
 [ext_resource type="Script" uid="uid://b5cwffuge23v4" path="res://scripts/combat/BattleManager.gd" id="3"]
 [ext_resource type="Script" uid="uid://cs6ru73blvlim" path="res://scripts/combat/TurnManager.gd" id="4"]
-[ext_resource type="PackedScene" path="res://scenes/ui/InitiativeBar.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://c47ocrerjdecf" path="res://scenes/ui/InitiativeBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cbdpn411f2t67" path="res://scenes/ui/UnitCard.tscn" id="6"]
 [ext_resource type="Texture2D" uid="uid://bry7otmjfpgb1" path="res://assets/missing_asset.png" id="7_5282s"]
 [ext_resource type="Script" uid="uid://sfmf3nxsd1bq" path="res://scripts/combat/Camera2DCustom.gd" id="8"]
@@ -37,21 +37,29 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="InitiativeBar" parent="CanvasLayer/UI" instance=ExtResource("5")]
-layout_mode = 1
-anchors_preset = 5
+anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -190.0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = -200.0
+offset_right = 200.0
 offset_top = 10.0
-offset_right = 130.0
-offset_bottom = 74.0
+offset_bottom = 66.0
 grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+clip_contents = true
+alignment = 1
 fallback_icon = ExtResource("7_5282s")
 
 [node name="UnitCard" parent="CanvasLayer/UI" instance=ExtResource("6")]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 208.0
-offset_bottom = 80.0
-grow_horizontal = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -218.0
+offset_top = 80.0
+offset_right = -10.0
+offset_bottom = 160.0
+fallback_icon = ExtResource("7_5282s")

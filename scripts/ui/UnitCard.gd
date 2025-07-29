@@ -36,9 +36,9 @@ func bind(entity: Node) -> void:
 	# Set portrait texture
 	if "data" in entity and entity.data:
 		# Try portrait_texture first, then fallback to portrait_path
-		if entity.data.portrait_texture:
+		if "portrait_texture" in entity.data and entity.data.portrait_texture:
 			portrait.texture = entity.data.portrait_texture
-		elif entity.data.portrait_path != "":
+		elif "portrait_path" in entity.data and entity.data.portrait_path != "":
 			portrait.texture = load(entity.data.portrait_path)
 		else:
 			portrait.texture = fallback_icon

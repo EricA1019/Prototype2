@@ -9,6 +9,8 @@ class MockData:
 
 # Mock entity with hp signals and basic properties
 class MockEntity extends Node2D:
+	signal hp_changed(current: int, max: int)
+	
 	var hp: int = 10
 	var hp_max: int = 10
 	var data = null
@@ -28,7 +30,7 @@ func test_bind_and_update_hp() -> void:
 	card.bind(mock)
 
 	# After binding, hp bar should reflect initial hp
-	var hp_bar = card.get_node("HPBar") as ProgressBar
+	var hp_bar = card.get_node("HBox/Right/HP") as ProgressBar
 	assert_eq(hp_bar.value, 7, "HP bar should match entity hp after bind")
 
 	# Emit hp_changed signal and test update

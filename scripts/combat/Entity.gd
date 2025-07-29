@@ -69,6 +69,13 @@ func take_turn(bm: BattleManager) -> void:
 
 func apply_damage(amount: int) -> void:
 	# Retrieve stat block resource dynamically
+	if data == null:
+		hp = max(0, hp - amount)
+		emit_signal("hp_changed", hp, 30)  # Use default max HP
+		if hp == 0:
+			emit_signal("died")
+		return
+	
 	var sb = data.get("stat_block")
 	var maxhp: int = sb.hp_max if sb else hp
 	hp = max(0, hp - amount)
@@ -78,6 +85,11 @@ func apply_damage(amount: int) -> void:
 
 func apply_heal(amount: int) -> void:
 	# Retrieve stat block resource dynamically
+	if data == null:
+		hp = min(30, hp + amount)  # Use default max HP
+		emit_signal("hp_changed", hp, 30)
+		return
+	
 	var sb = data.get("stat_block")
 	var maxhp: int = sb.hp_max if sb else hp
 	hp = min(maxhp, hp + amount)

@@ -63,7 +63,7 @@
 		{
 			"label": "Godot: Run BattleTest",
 			"type": "shell",
-			"command": "${input:godotBin} --path . -s res://scripts/LaunchBattleTest.gd",
+			"command": "${input:godotBin} --path . -s res://LaunchBattleTest.gd",
 			"problemMatcher": [],
 			"options": { "shell": { "executable": "bash", "args": ["-lc"] } }
 		},

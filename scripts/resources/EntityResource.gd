@@ -1,7 +1,7 @@
 @tool
 @icon("res://assets/textures/icons/icon_entity.png")
 extends Resource
-class_name EntityResource
+class_name EntityRes
 
 @export var display_name: String = "New Entity"
 @export var team: String = "friends"
