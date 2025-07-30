@@ -27,7 +27,7 @@ class MiniUnit:
 		if enemies.is_empty():
 			return
 		var target:MiniUnit = enemies[0]
-		bm.damage(target, dmg_per_turn, "Physical")
+		bm.damage(self, target, dmg_per_turn, "Physical")
 
 func _make_battle() -> BattleManager:
 	var bm : BattleManager = add_child_autoqfree(BattleManagerScript.new())

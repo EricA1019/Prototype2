@@ -56,48 +56,47 @@ func _on_scroll_changed() -> void:
 	# Keep scroll at bottom when new content is added
 	call_deferred("_scroll_to_bottom")
 
+func _get_entity_display_name(entity: Node) -> String:
+	"""Get the proper display name for an entity"""
+	if entity == null:
+		return "Unknown"
+	
+	# Try to get display name from entity data first
+	if "data" in entity and entity.data != null:
+		if "display_name" in entity.data and entity.data.display_name != "":
+			return entity.data.display_name
+	
+	# Fallback to node name
+	return entity.name
+
 # Signal connection methods for BattleManager events
 func _on_round_started(round_number: int) -> void:
 	append("[bold]ROUND %d STARTED[/bold]" % round_number)
 
 func _on_turn_started(actor: Node) -> void:
-	var actor_name: String = "Unknown"
-	if actor != null:
-		actor_name = actor.name
+	var actor_name = _get_entity_display_name(actor)
 	append("%s's turn begins" % actor_name)
 
 func _on_turn_ended(actor: Node) -> void:
-	var actor_name: String = "Unknown"
-	if actor != null:
-		actor_name = actor.name
+	var actor_name = _get_entity_display_name(actor)
 	append("%s's turn ends" % actor_name)
 
 func _on_damage_dealt(attacker: Node, target: Node, amount: int, dtype: String) -> void:
-	var attacker_name: String = "Unknown"
-	var target_name: String = "Unknown"
-	if attacker != null:
-		attacker_name = attacker.name
-	if target != null:
-		target_name = target.name
+	var attacker_name = _get_entity_display_name(attacker)
+	var target_name = _get_entity_display_name(target)
 	append("[color=red]%s deals %d %s damage to %s[/color]" % [attacker_name, amount, dtype, target_name])
 
 func _on_battle_ended(result: String) -> void:
 	append("[bold][color=yellow]BATTLE ENDED: %s[/color][/bold]" % result.to_upper())
 
 func _on_status_applied(target: Node, status_name: String) -> void:
-	var target_name: String = "Unknown"
-	if target != null:
-		target_name = target.name
+	var target_name = _get_entity_display_name(target)
 	append("[color=purple]%s gains status: %s[/color]" % [target_name, status_name])
 
 func _on_buff_applied(target: Node, buff_name: String) -> void:
-	var target_name: String = "Unknown"
-	if target != null:
-		target_name = target.name
+	var target_name = _get_entity_display_name(target)
 	append("[color=green]%s gains buff: %s[/color]" % [target_name, buff_name])
 
 func _on_dot_tick(target: Node, damage: int, effect_name: String) -> void:
-	var target_name: String = "Unknown"
-	if target != null:
-		target_name = target.name
+	var target_name = _get_entity_display_name(target)
 	append("[color=orange]%s takes %d damage from %s[/color]" % [target_name, damage, effect_name])

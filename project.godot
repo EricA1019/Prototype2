@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Prototype2"
-config/version="0.1.6"
+config/version="0.1.7"
 config/tags=PackedStringArray("broken_divinity")
 run/main_scene="uid://bdv7yj8yfj5og"
 config/features=PackedStringArray("4.5", "Forward Plus")
@@ -28,14 +28,10 @@ AbilityReg="*res://scripts/registries/AbilityReg.gd"
 BuffReg="*res://scripts/registries/BuffReg.gd"
 StatusReg="*res://scripts/registries/StatusReg.gd"
 
-[debug]
-
-settings/stdout/verbose_stdout=true
-
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1400
+window/size/viewport_height=800
 window/size/mode=2
 
 [editor_plugins]

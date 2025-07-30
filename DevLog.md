@@ -1,4 +1,55 @@
-# Broken Divinity — Prototype MK2
+# Broken Divinity — Prototype MK2
+
+## Dev Log 0.1.7 · 2025-07-30
+
+### 🎯 **Hop 5 Complete: 6x6 Grid Battlefield**
+
+**Major milestone achieved!** Complete implementation of the tactical grid battlefield system.
+
+### ✨ Highlights
+
+* **6x6 Grid System** — 480x480 pixel battlefield with 80x80 pixel tiles
+* **Team-based positioning** — Allies (columns 0-2) vs Enemies (columns 3-5) with color-coded grid lines
+* **2v2 Battle Support** — Multi-entity battles with proper team composition (2 Detectives vs 2 Imps)
+* **Grid-aware Entity Spawning** — EntitySpawner now places entities using grid coordinates
+* **Normalized Sprite Scaling** — All entity sprites properly sized to fit within grid tiles
+* **Enhanced Combat Logging** — Proper entity names in combat log instead of "Node" references
+
+### 🔧 Technical Implementations
+
+| Component | Implementation | Status |
+|-----------|---------------|---------|
+| **BattleGrid** | 6x6 grid system with team restrictions | ✅ Complete |
+| **Grid Positioning** | Pixel-perfect entity placement | ✅ Complete |
+| **Multi-entity Spawning** | 2v2 battle configuration | ✅ Complete |
+| **Visual Grid Lines** | Team-colored boundaries | ✅ Complete |
+| **Sprite Normalization** | 0.08 scale for 60px sprites in 80px tiles | ✅ Complete |
+| **Entity Naming** | Unique names for multiple same-type entities | ✅ Complete |
+
+### 🎮 **Player Experience**
+
+* **Clear battlefield layout** with visible grid structure
+* **Distinct team sides** with color-coded grid areas
+* **Properly sized sprites** that fit comfortably within grid squares
+* **Readable combat log** with meaningful entity names
+* **Smooth 2v2 combat** with proper turn order
+
+### 📐 **Grid Specifications**
+
+* **Grid Size**: 6x6 tiles (30 squares total)
+* **Tile Size**: 80x80 pixels each
+* **Total Battlefield**: 480x480 pixels
+* **Team Areas**: 3 columns per team (18 squares each)
+* **Entity Scale**: 0.08 (approximately 60px sprites)
+* **Resolution**: 1400x800 (updated for better grid visibility)
+
+*End of Dev Log 0.1.7*
+
+---
+
+## Dev Log 0.1.0 · 2025---
+
+*End of Dev Log 0.1.0*ken Divinity — Prototype MK2
 
 ## Dev Log 0.1.0 · 2025---
 

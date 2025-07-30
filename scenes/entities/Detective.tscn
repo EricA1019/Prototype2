@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" path="res://assets/entities/sprite_detective.png" id="6_sprite"]
 [ext_resource type="Resource" uid="uid://dw8hunsauo3ys" path="res://data/entities/detective.tres" id="7_detective_data"]
 
-[node name="Detective" type="Node"]
+[node name="Detective" type="Node2D"]
 script = ExtResource("1")
 data = ExtResource("7_detective_data")
 
@@ -17,5 +17,5 @@ script = ExtResource("2")
 ability_names = [ExtResource("3_shield"), ExtResource("4_regen"), ExtResource("5_shoot")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.08, 0.08)
 texture = ExtResource("6_sprite")
