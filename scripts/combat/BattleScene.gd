@@ -7,13 +7,20 @@ class_name BattleScene
 @onready var spawner: Node     = $World/Spawner
 @onready var bar: Control      = $CanvasLayer/UI/InitiativeBar
 @onready var combat_log: Panel = $CanvasLayer/UI/CombatLog
+@onready var action_bar: Panel = $CanvasLayer/UI/ActionBar
 
 func _ready() -> void:
 	print("[BattleScene] _ready")
-	# Spawn one ally entity
-	var ally: Node = spawner.spawn()
-	if ally == null:
-		push_warning("[BattleScene] Spawner returned null")
+	# Spawn Detective ally
+	var detective: Node = spawner.spawn_detective()
+	if detective == null:
+		push_warning("[BattleScene] Spawner returned null detective")
+		return
+	
+	# Spawn Imp enemy
+	var imp: Node = spawner.spawn_imp()
+	if imp == null:
+		push_warning("[BattleScene] Spawner returned null imp")
 		return
 	
 	# Bind InitiativeBar UI
@@ -22,22 +29,29 @@ func _ready() -> void:
 	
 	# Bind UnitCard UI
 	var card = $CanvasLayer/UI/UnitCard
-	card.bind(ally)
+	card.bind(detective)
 	# Show card on this entity's turns
 	bm.turn_started.connect(card.show_turn)
 	
 	# Bind CombatLog UI - connect all BattleManager signals
 	_setup_combat_log()
 	
-	# Start battle with one friend, no foes
-	bm.start_battle([ally], [])
+	# Bind ActionBar UI - connect turn signals and ability usage
+	_setup_action_bar()
 	
-	# Force initial card display
-	card.show_turn(ally)
+	# Start battle with Detective vs Imp
+	bm.start_battle([detective], [imp])
 	
-	# Focus camera on ally
-	_focus_camera_on(ally)
-	print("[BattleScene] Started battle with 1 unit")
+	# Force initial card display and ActionBar for testing
+	card.show_turn(detective)
+	
+	# Manually trigger turn_started to show ActionBar for demonstration
+	await get_tree().process_frame
+	bm.emit_signal("turn_started", detective)
+	
+	# Focus camera on detective
+	_focus_camera_on(detective)
+	print("[BattleScene] Started battle: Detective vs Imp")
 
 func _setup_combat_log() -> void:
 	if not combat_log:
@@ -58,6 +72,25 @@ func _setup_combat_log() -> void:
 	
 	# Add initial welcome message
 	combat_log.append("Welcome to the battlefield!")
+
+func _setup_action_bar() -> void:
+	if not action_bar:
+		push_warning("[BattleScene] ActionBar not found")
+		return
+	
+	print("[BattleScene] Setting up ActionBar signal connections")
+	
+	# Connect BattleManager signals to ActionBar
+	bm.turn_started.connect(action_bar.show_for)
+	bm.turn_ended.connect(_on_turn_ended_hide_actions)
+	
+	# Connect ActionBar signals to BattleManager
+	action_bar.ability_used.connect(bm.use_ability)
+
+func _on_turn_ended_hide_actions(_actor: Node) -> void:
+	"""Hide action bar when turn ends"""
+	if action_bar:
+		action_bar.hide_actions()
 
 func _focus_camera_on(entity: Node) -> void:
 	var cam: Camera2D = null

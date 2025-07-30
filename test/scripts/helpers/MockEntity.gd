@@ -3,6 +3,7 @@ extends Node
 
 var hp: int = 100
 var team: String = "friends"
+var abilities: Array = []
 
 func apply_damage(amount: int) -> void:
 	hp -= amount
@@ -18,3 +19,6 @@ func is_dead() -> bool:
 func take_turn(_battle_manager: Node) -> void:
 	# Mock implementation - do nothing
 	pass
+
+func get_abilities() -> Array:
+	return abilities

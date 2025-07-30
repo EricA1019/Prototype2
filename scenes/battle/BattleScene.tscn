@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdv7yj8yfj5og"]
+[gd_scene load_steps=11 format=3 uid="uid://bdv7yj8yfj5og"]
 
 [ext_resource type="Script" uid="uid://cq8rtduq484g4" path="res://scripts/combat/BattleScene.gd" id="1"]
 [ext_resource type="Script" uid="uid://nvibru871jlh" path="res://scripts/combat/EntitySpawner.gd" id="2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bry7otmjfpgb1" path="res://assets/missing_asset.png" id="7_5282s"]
 [ext_resource type="Script" uid="uid://sfmf3nxsd1bq" path="res://scripts/combat/Camera2DCustom.gd" id="8"]
 [ext_resource type="PackedScene" uid="uid://bmhk8v1wxp7ks" path="res://scenes/ui/CombatLog.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://bh45cwf7vmdgp" path="res://scenes/ui/ActionBar.tscn" id="10"]
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource("1")
@@ -59,4 +60,7 @@ offset_bottom = 160.0
 fallback_icon = ExtResource("7_5282s")
 
 [node name="CombatLog" parent="CanvasLayer/UI" instance=ExtResource("9")]
+layout_mode = 1
+
+[node name="ActionBar" parent="CanvasLayer/UI" instance=ExtResource("10")]
 layout_mode = 1

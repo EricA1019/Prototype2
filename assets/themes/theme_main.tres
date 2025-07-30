@@ -82,8 +82,8 @@ shadow_color = Color(0, 0, 0, 0.5)
 
 [resource]
 # Set this to a TTF/OTF when you add one:
-# default_font = ExtResource("1")
-# default_font_size = 18
+; default_font = ExtResource("1")
+; default_font_size = 18
 
 # Global palette (usable from code via theme.get_color("text", ""), etc.)
 colors/text            = Color(0.90, 0.86, 0.76, 1.0)   # parchment

@@ -10,6 +10,6 @@ display_name = "Detective"
 portrait_path = "res://assets/portraits/detective_portait.png"
 sprite_path = "res://assets/entities/sprite_detective.png"
 stat_block = ExtResource("2")
-abilities = ["Shield", "Regen"]
+abilities = ["Shield", "Regen", "Shoot"]
 starting_buffs = ["Shield"]
 ai_profile = "basic_support"

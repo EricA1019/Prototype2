@@ -146,7 +146,10 @@ func _highlight(actor:Node) -> void:
 
 func _outline_style() -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
-	sb.border_width_all = current_outline_thickness
+	sb.border_width_left = current_outline_thickness
+	sb.border_width_right = current_outline_thickness
+	sb.border_width_top = current_outline_thickness
+	sb.border_width_bottom = current_outline_thickness
 	sb.border_color = Color(1, 1, 0, 1)
 	sb.draw_center = false
 	return sb

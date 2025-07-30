@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bq6y8x2m8nkpl"]
+
+[ext_resource type="Script" path="res://scripts/resources/AbilityResource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+resource_name = "Shoot"
+display_name = "Shoot"
+damage_type = "Ballistic"
+tags = ["Damage", "Ranged"]
+description = "Ranged ballistic attack with precision targeting."
+icon_path = ""
+cooldown = 0
+damage = 12

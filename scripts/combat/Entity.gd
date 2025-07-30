@@ -52,7 +52,7 @@ func _ready() -> void:
 		for s in data.starting_statuses:
 			sreg.apply_status(self, s)
 
-func take_turn(bm: BattleManager) -> void:
+func take_turn(bm) -> void:
 	# Minimal placeholder AI: basic physical hit on first enemy
 	var enemies: Array = bm.get_enemies(self)
 	if enemies.is_empty():
@@ -65,7 +65,8 @@ func take_turn(bm: BattleManager) -> void:
 	var raw: int = max(0, atk - defv)
 	var mult: float = data.resistances.get(data.defense_type, 1.0)
 	var amount: int = int(round(max(1.0, raw * mult)))
-	bm.damage(target, amount, "Physical")
+	# Pass self as attacker so CombatLog shows actor name
+	bm.damage(self, target, amount, "Physical")
 
 func apply_damage(amount: int) -> void:
 	# Retrieve stat block resource dynamically
@@ -100,6 +101,12 @@ func is_dead() -> bool:
 
 func get_team() -> String:
 	return data.team if data else "friends"
+
+func get_abilities() -> Array:
+	"""Get the list of ability names for this entity"""
+	if data and data.abilities:
+		return data.abilities
+	return []
 
 # Expose defense for quick math in tests
 var defense: int:

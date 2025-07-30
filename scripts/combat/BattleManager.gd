@@ -135,12 +135,12 @@ func get_enemies(unit: Node) -> Array:
 			enemies.append(u)
 	return enemies
 
-func damage(target: Node, amount: int, _type: String = "Physical") -> void:
+func damage(attacker: Node, target: Node, amount: int, _type: String = "Physical") -> void:
 	if target.has_method("apply_damage"):
 		target.apply_damage(amount)
 		print("[CombatMgr] %s takes %d damage (HP: %d)" % [target.name, amount, target.hp])
 		# Emit damage_dealt signal for combat log
-		emit_signal("damage_dealt", null, target, amount, _type)
+		emit_signal("damage_dealt", attacker, target, amount, _type)
 
 func _check_victory() -> bool:
 	var friends_alive: Array = []
@@ -156,4 +156,70 @@ func _check_victory() -> bool:
 	
 	# Battle ends if either side has no living units
 	return foes_alive.size() == 0 or friends_alive.size() == 0
+
+func use_ability(actor: Node, ability_name: String) -> void:
+	"""Handle ability usage with auto-targeting"""
+	if not actor:
+		push_warning("[BattleManager] use_ability called with null actor")
+		return
+	
+	print("[BattleManager] %s uses ability: %s" % [actor.name, ability_name])
+	
+	# Get ability from registry
+	var ability_reg = get_node_or_null("/root/AbilityReg")
+	if not ability_reg:
+		push_warning("[BattleManager] AbilityReg not found")
+		return
+	
+	var ability = ability_reg.get_ability(ability_name)
+	if not ability:
+		push_warning("[BattleManager] Ability not found: %s" % ability_name)
+		return
+	
+	# Determine target based on ability type
+	var target: Node = null
+	
+	# Check if ability has buff_to_apply (self-targeting)
+	if ability.has_method("get") and ability.get("buff_to_apply"):
+		target = actor
+		print("[BattleManager] Self-targeting ability: %s" % ability_name)
+	else:
+		# Auto-target first valid enemy
+		var enemies = get_enemies(actor)
+		if enemies.size() > 0:
+			target = enemies[0]
+			print("[BattleManager] Auto-targeting enemy: %s" % target.name)
+		else:
+			print("[BattleManager] No valid targets for ability: %s" % ability_name)
+			return
+	
+	# Apply ability effect
+	_apply_ability_effect(actor, target, ability)
+
+func _apply_ability_effect(actor: Node, target: Node, ability: Resource) -> void:
+	"""Apply the actual ability effect"""
+	if not ability.has_method("get"):
+		push_warning("[BattleManager] Invalid ability resource")
+		return
+	
+	var ability_name = ability.get("resource_name") or "Unknown"
+	
+	# Handle buff abilities
+	if ability.get("buff_to_apply"):
+		var buff_name = ability.get("buff_to_apply")
+		var buff_reg = get_node_or_null("/root/BuffReg")
+		if buff_reg and buff_reg.has_method("apply_buff"):
+			buff_reg.apply_buff(target, buff_name, 1, 5)  # 1 stack, 5 duration
+			print("[BattleManager] Applied buff %s to %s" % [buff_name, target.name])
+		else:
+			push_warning("[BattleManager] BuffReg not available for buff: %s" % buff_name)
+	
+	# Handle direct damage abilities (future expansion)
+	var damage_amount = ability.get("damage") or 0
+	if damage_amount > 0:
+		# Pass actor as attacker so CombatLog shows correct name
+		damage(actor, target, damage_amount, ability.get("damage_type") or "Physical")
+	
+	# Log the ability usage for combat log
+	print("[BattleManager] %s used %s on %s" % [actor.name, ability_name, target.name])
 #EOF

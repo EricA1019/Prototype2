@@ -1,0 +1,21 @@
+[gd_scene load_steps=8 format=3 uid="uid://cj8f2vn3kqx8r"]
+
+[ext_resource type="Script" uid="uid://go086ah7ogpn" path="res://scripts/combat/Entity.gd" id="1"]
+[ext_resource type="Script" uid="uid://bumuuib8vkq33" path="res://scripts/combat/AbilityContainer.gd" id="2"]
+[ext_resource type="Resource" path="res://data/abilities/attack.tres" id="3_attack"]
+[ext_resource type="Resource" path="res://data/abilities/poison.tres" id="4_poison"]
+[ext_resource type="Resource" path="res://data/abilities/bleed.tres" id="5_bleed"]
+[ext_resource type="Texture2D" path="res://assets/entities/sprite_imp.png" id="6_sprite"]
+[ext_resource type="Resource" path="res://data/entities/imp.tres" id="7_imp_data"]
+
+[node name="Imp" type="Node"]
+script = ExtResource("1")
+data = ExtResource("7_imp_data")
+
+[node name="AbilityContainer" type="Node" parent="."]
+script = ExtResource("2")
+ability_names = [ExtResource("3_attack"), ExtResource("4_poison"), ExtResource("5_bleed")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_sprite")
